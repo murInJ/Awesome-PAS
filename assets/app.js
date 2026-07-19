@@ -94,6 +94,23 @@
     return url ? `<a class="${className}" href="${escapeHtml(url)}" target="_blank" rel="noreferrer">${escapeHtml(label)} ↗</a>` : "";
   }
 
+  function renderDetailValue(value) {
+    if (typeof value === "string" && /<(?:span|a)\b/i.test(value)) return value;
+    return escapeHtml(value);
+  }
+
+  function renderDetailList(rows, className = "") {
+    const filtered = rows.filter(([, value]) => value);
+    if (!filtered.length) return "";
+    return `<dl class="detail-list ${className}">${filtered.map(([label, value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${renderDetailValue(value)}</dd></div>`).join("")}</dl>`;
+  }
+
+  function renderMoreDetails(rows) {
+    const filtered = rows.filter(([, value]) => value);
+    if (!filtered.length) return "";
+    return `<details class="resource-more"><summary>${escapeHtml(t.moreDetails)}</summary>${renderDetailList(filtered, "detail-list-secondary")}</details>`;
+  }
+
   function groupByYear(items) {
     const groups = new Map();
     items.forEach(item => {
@@ -132,15 +149,18 @@
     const title = item.paperUrl
       ? `<a href="${escapeHtml(item.paperUrl)}" target="_blank" rel="noreferrer">${escapeHtml(item.title)}</a>`
       : escapeHtml(item.title);
-    const detailRows = [];
-    if (item.traitList?.length) detailRows.push([t.trait, chips(item.traitList)]);
-    if (item.modalityList?.length) detailRows.push([t.modality, chips(item.modalityList)]);
-    if (item.attackList?.length) detailRows.push([t.attack, chips(item.attackList, "attack-chip")]);
-    if (item.cueList?.length) detailRows.push([t.cue, chips(item.cueList)]);
-    if (item.settingList?.length) detailRows.push([t.setting, chips(item.settingList, "setting-chip")]);
-    if (item.datasetList?.length) detailRows.push([t.datasetsLabel, chips(item.datasetList, "dataset-chip")]);
-    if (item.targetList?.length) detailRows.push([t.target, chips(item.targetList)]);
-    if (item.attackSurfaceList?.length) detailRows.push([t.attackSurface, chips(item.attackSurfaceList)]);
+    const primaryRows = [
+      [t.trait, chips(item.traitList)],
+      [t.modality, chips(item.modalityList)],
+      [t.attack, chips(item.attackList, "attack-chip")],
+      [t.setting, chips(item.settingList, "setting-chip")]
+    ];
+    const secondaryRows = [
+      [t.cue, chips(item.cueList)],
+      [t.datasetsLabel, chips(item.datasetList, "dataset-chip")],
+      [t.target, chips(item.targetList)],
+      [t.attackSurface, chips(item.attackSurfaceList)]
+    ];
 
     const sourceFiles = item.collections || [item.sourceFile];
     const sourceLinks = sourceFiles.map(file => `<a href="${escapeHtml(file)}">${escapeHtml(t.sourceMarkdown)}</a>`).join(" · ");
@@ -150,8 +170,9 @@
         <div class="publication-meta"><strong>${escapeHtml(item.venue || "—")}</strong><span>${escapeHtml(item.year || "")}</span></div>
       </div>
       <h3 class="resource-title">${title}</h3>
-      ${item.note ? `<p class="resource-note">${escapeHtml(item.note)}</p>` : ""}
-      <dl class="detail-list">${detailRows.map(([label, value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${value}</dd></div>`).join("")}</dl>
+      ${item.note ? `<p class="resource-note" title="${escapeHtml(item.note)}">${escapeHtml(item.note)}</p>` : ""}
+      ${renderDetailList(primaryRows, "method-details")}
+      ${renderMoreDetails(secondaryRows)}
       <div class="resource-actions">
         ${externalLink(item.paperUrl, t.paper, "action-link")}
         ${externalLink(item.codeUrl, t.codeAvailable, "action-link code-action")}
@@ -172,7 +193,7 @@
     empty.hidden = true;
     timeline.innerHTML = groupByYear(items).map(([year, rows]) => `<section class="year-group">
       <div class="year-marker"><span>${escapeHtml(year)}</span><small>${rows.length} ${escapeHtml(t.entries)}</small></div>
-      <div class="year-content">${rows.map(methodCard).join("")}</div>
+      <div class="year-content methods-grid">${rows.map(methodCard).join("")}</div>
     </section>`).join("");
   }
 
@@ -180,22 +201,25 @@
     const name = item.datasetUrl
       ? `<a href="${escapeHtml(item.datasetUrl)}" target="_blank" rel="noreferrer">${escapeHtml(item.dataset)}</a>`
       : escapeHtml(item.dataset || "");
-    const details = [
+    const primaryRows = [
       [t.trait, chips(item.traitList)],
       [t.modality, chips(item.modalityList)],
-      [t.sampleType, cleanValue(item.sampleType)],
       [t.subjects, cleanValue(item.subjects)],
+      [t.attack, chips(item.attackList, "attack-chip")]
+    ];
+    const secondaryRows = [
+      [t.sampleType, cleanValue(item.sampleType)],
       [t.bonaFide, cleanValue(item.bonaFide)],
       [t.attackSamples, cleanValue(item.attacks)],
-      [t.attack, chips(item.attackList, "attack-chip")],
       [t.devices, cleanValue(item.devices)],
       [t.protocol, chips(item.protocolList, "setting-chip")]
-    ].filter(([, value]) => value);
+    ];
     return `<article class="resource-card dataset-card">
       <div class="resource-topline"><div>${badge(item.datasetAccess, "access")}</div><div class="publication-meta"><span>${escapeHtml(item.year || "")}</span></div></div>
       <h3 class="resource-title">${name}</h3>
-      ${item.note ? `<p class="resource-note">${escapeHtml(item.note)}</p>` : ""}
-      <dl class="detail-list dataset-details">${details.map(([label, value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${typeof value === "string" && value.includes("<span") ? value : escapeHtml(value)}</dd></div>`).join("")}</dl>
+      ${item.note ? `<p class="resource-note" title="${escapeHtml(item.note)}">${escapeHtml(item.note)}</p>` : ""}
+      ${renderDetailList(primaryRows, "dataset-details")}
+      ${renderMoreDetails(secondaryRows)}
       <div class="resource-actions">
         ${externalLink(item.datasetUrl, t.dataset, "action-link")}
         ${externalLink(item.paperUrl, t.paper, "action-link")}
@@ -209,25 +233,28 @@
     if (!items.length) { container.innerHTML = `<div class="empty-state">${escapeHtml(t.noData)}</div>`; return; }
     container.innerHTML = groupByYear(items).map(([year, rows]) => `<section class="year-group">
       <div class="year-marker"><span>${escapeHtml(year)}</span><small>${rows.length} ${escapeHtml(t.entries)}</small></div>
-      <div class="year-content two-column">${rows.map(datasetCard).join("")}</div>
+      <div class="year-content datasets-grid">${rows.map(datasetCard).join("")}</div>
     </section>`).join("");
   }
 
   function benchmarkCard(item) {
     const source = item.sourceUrl ? externalLink(item.sourceUrl, item.sourceLabel || t.source, "action-link") : "";
-    const details = [
-      [t.trait, chips(item.traitList)],
+    const primaryRows = [
       [t.dataset, chips(item.datasetList, "dataset-chip")],
       [t.protocol, chips(item.protocolList, "setting-chip")],
+      [t.metrics, chips(item.metricsList)]
+    ];
+    const secondaryRows = [
+      [t.trait, chips(item.traitList)],
       [t.trainCondition, cleanValue(item.trainCondition)],
       [t.testCondition, cleanValue(item.testCondition)],
-      [t.metrics, chips(item.metricsList)],
       [t.thresholdRule, cleanValue(item.thresholdRule)]
-    ].filter(([, value]) => value);
+    ];
     return `<article class="resource-card benchmark-card">
       <div class="resource-topline"><div>${badge(item.status, "status")}</div><div class="publication-meta"><span>${escapeHtml(item.year || "")}</span></div></div>
       <h3 class="resource-title">${escapeHtml(item.benchmark || "")}</h3>
-      <dl class="detail-list benchmark-details">${details.map(([label, value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${typeof value === "string" && value.includes("<span") ? value : escapeHtml(value)}</dd></div>`).join("")}</dl>
+      ${renderDetailList(primaryRows, "benchmark-details")}
+      ${renderMoreDetails(secondaryRows)}
       <div class="resource-actions">${source}<a class="source-links" href="${escapeHtml(item.sourceFile)}">${escapeHtml(t.sourceMarkdown)}</a></div>
     </article>`;
   }
@@ -237,7 +264,7 @@
     if (!items.length) { container.innerHTML = `<div class="empty-state">${escapeHtml(t.noData)}</div>`; return; }
     container.innerHTML = groupByYear(items).map(([year, rows]) => `<section class="year-group">
       <div class="year-marker"><span>${escapeHtml(year)}</span><small>${rows.length} ${escapeHtml(t.entries)}</small></div>
-      <div class="year-content two-column">${rows.map(benchmarkCard).join("")}</div>
+      <div class="year-content benchmarks-grid">${rows.map(benchmarkCard).join("")}</div>
     </section>`).join("");
   }
 

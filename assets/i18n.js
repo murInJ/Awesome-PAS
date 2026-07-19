@@ -21,7 +21,7 @@ window.AWESOME_PAS_I18N = {
     trainCondition: "Train condition", testCondition: "Test condition", metrics: "Primary metrics", thresholdRule: "Threshold rule", status: "Status", source: "Source",
     openBenchmarkMarkdown: "Open complete benchmark Markdown →", footerDesc: "A bilingual, manually curated collection for palm authentication security.",
     entries: "entries", latestResources: "Latest resources", viewCollection: "View in methods",
-    noData: "No structured entries are available yet."
+    noData: "No structured entries are available yet.", moreDetails: "More details"
   },
   zh: {
     title: "Awesome Palm Authentication Security",
@@ -45,7 +45,7 @@ window.AWESOME_PAS_I18N = {
     trainCondition: "训练条件", testCondition: "测试条件", metrics: "主要指标", thresholdRule: "阈值规则", status: "状态", source: "来源",
     openBenchmarkMarkdown: "查看完整 Benchmark Markdown →", footerDesc: "人工维护、面向手掌认证安全的中英双语资源库。",
     entries: "项", latestResources: "最新资源", viewCollection: "在方法区查看",
-    noData: "暂无结构化条目。"
+    noData: "暂无结构化条目。", moreDetails: "更多信息"
   }
 };
 

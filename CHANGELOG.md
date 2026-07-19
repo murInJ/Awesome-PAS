@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0 — 2026-07-19
+
+- Reworked all resource cards into a compact, high-density layout.
+- Added three-column desktop grids for methods, datasets and benchmarks, with responsive two- and one-column fallbacks.
+- Kept the most important metadata visible and moved secondary fields into expandable detail panels.
+- Reduced section spacing, card padding, collection-card height and statistics-card footprint.
+- Preserved the Markdown-only data model, bilingual interface and automatic filtering/statistics.
+
 ## 0.2.0 — 2026-07-19
 
 - Rebuilt the bilingual website into four explicit areas: methods, datasets, benchmarks, and statistics/trends.

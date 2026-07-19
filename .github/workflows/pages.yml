@@ -34,6 +34,7 @@ jobs:
         run: |
           node tests/parser.test.mjs
           node tests/data-integration.test.mjs
+          node tests/layout-contract.test.mjs
 
   deploy:
     needs: validate

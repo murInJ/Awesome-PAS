@@ -1,18 +1,33 @@
 # Benchmarks
 
-[中文](./README.zh-CN.md) · [Home](../README.md)
+[中文](./README.zh-CN.md) · [Home](../README.md) · [Web benchmark section](../index.html#benchmarks)
 
-The first release defines a comparison schema and records protocols without mixing incompatible numbers. Add numerical results only when all of the following are known: train/validation/test split, threshold rule, metrics, extra data and source.
+Benchmark protocols are ordered by the publication year of their defining source. Numerical results should be added only when the train/validation/test split, threshold rule, metrics, extra data and result source are all known.
 
-## Protocol inventory
+## Year 2026
 
-| Benchmark | Trait | Dataset | Protocol | Train Condition | Test Condition | Primary Metrics | Threshold Rule | Status | Source |
-|:---|:---|:---|:---|:---|:---|:---|:---|:---:|:---|
-| XJTU-PalmReplay Closed Set | Palmprint | XJTU-PalmReplay | Intra-Dataset | Known identities/devices split | Held-out samples from known domains | APCER; BPCER; ACER; AUC | Paper-defined | Defined | [HFSRA](https://doi.org/10.1049/ipr2.70029) |
-| XJTU-PalmReplay Open Set | Palmprint | XJTU-PalmReplay | Unknown Attack | Known attack domains | Held-out attack domain or configuration | APCER; BPCER; ACER; AUC | Paper-defined | Defined | [HFSRA](https://doi.org/10.1049/ipr2.70029) |
-| XJTU-PalmReplay Cross Domain | Palmprint | XJTU-PalmReplay | Cross-Device; Domain Generalization | Multiple display-capture domains | Unseen display-capture domain | HTER; AUC; ACER | Must be reported | Defined | [ICIP 2023](https://doi.org/10.1109/ICIP49359.2023.10223182) |
-| VERA PalmVein PAD | Palm Vein | VERA Spoofing PalmVein | Intra-Dataset | Subject-disjoint split preferred | Held-out bona-fide and print samples | APCER; BPCER; ACER; AUC | Must be reported | Needs harmonization | [Dataset](https://zenodo.org/records/4580200) |
-| PVASD Benchmark | Palm Vein | PVASD | Known and Unknown Attack | Official split | Physical and AI-generated attacks | APCER; BPCER; ACER; AUC | Official protocol | Announced | [Paper](https://doi.org/10.1109/TIFS.2025.3650391) |
+| Benchmark | Year | Trait | Dataset | Protocol | Train Condition | Test Condition | Primary Metrics | Threshold Rule | Status | Source |
+|:---|---:|:---|:---|:---|:---|:---|:---|:---|:---:|:---|
+| PVASD Benchmark | 2026 | Palm Vein | PVASD | Unknown Attack; Anomaly Detection | Official split | Physical and AI-generated attacks | APCER; BPCER; ACER; AUC | Official protocol | Announced | [Paper](https://doi.org/10.1109/TIFS.2025.3650391) |
+
+## Year 2025
+
+| Benchmark | Year | Trait | Dataset | Protocol | Train Condition | Test Condition | Primary Metrics | Threshold Rule | Status | Source |
+|:---|---:|:---|:---|:---|:---|:---|:---|:---|:---:|:---|
+| XJTU-PalmReplay Closed Set | 2025 | Palmprint | XJTU-PalmReplay | Intra-Dataset | Known identities/devices split | Held-out samples from known domains | APCER; BPCER; ACER; AUC | Paper-defined | Defined | [HFSRA](https://doi.org/10.1049/ipr2.70029) |
+| XJTU-PalmReplay Open Set | 2025 | Palmprint | XJTU-PalmReplay | Unknown Attack | Known attack domains | Held-out attack domain or configuration | APCER; BPCER; ACER; AUC | Paper-defined | Defined | [HFSRA](https://doi.org/10.1049/ipr2.70029) |
+
+## Year 2023
+
+| Benchmark | Year | Trait | Dataset | Protocol | Train Condition | Test Condition | Primary Metrics | Threshold Rule | Status | Source |
+|:---|---:|:---|:---|:---|:---|:---|:---|:---|:---:|:---|
+| XJTU-PalmReplay Cross Domain | 2023 | Palmprint | XJTU-PalmReplay | Cross-Device; Domain Generalization | Multiple display-capture domains | Unseen display-capture domain | HTER; AUC; ACER | Must be reported | Defined | [ICIP 2023](https://doi.org/10.1109/ICIP49359.2023.10223182) |
+
+## Year 2015
+
+| Benchmark | Year | Trait | Dataset | Protocol | Train Condition | Test Condition | Primary Metrics | Threshold Rule | Status | Source |
+|:---|---:|:---|:---|:---|:---|:---|:---|:---|:---:|:---|
+| VERA PalmVein PAD | 2015 | Palm Vein | VERA Spoofing PalmVein | Intra-Dataset | Subject-disjoint split preferred | Held-out bona-fide and print samples | APCER; BPCER; ACER; AUC | Must be reported | Needs harmonization | [Dataset](https://zenodo.org/records/4580200) |
 
 ## Required result table
 

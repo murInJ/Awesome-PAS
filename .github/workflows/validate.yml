@@ -11,14 +11,19 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Set up Python
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
-      - uses: actions/setup-node@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
         with:
-          node-version: "22"
+          node-version: "24"
       - name: Validate bilingual Markdown tables
         run: python scripts/validate_markdown.py
       - name: Test Markdown parser
-        run: node tests/parser.test.mjs
+        run: |
+          node tests/parser.test.mjs
+          node tests/data-integration.test.mjs

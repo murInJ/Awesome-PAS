@@ -2,10 +2,11 @@ cff-version: 1.2.0
 title: Awesome Palm Authentication Security
 message: If you use this resource, please cite the repository and the original works listed in it.
 type: software
-version: 0.1.0
+version: 0.2.0
 date-released: 2026-07-19
 license: MIT
-repository-code: https://github.com/OWNER/Awesome-PAS
+repository-code: https://github.com/murInJ/Awesome-PAS
+url: https://murinj.github.io/Awesome-PAS/
 keywords:
   - palmprint
   - palm vein

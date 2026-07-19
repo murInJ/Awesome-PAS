@@ -162,7 +162,7 @@
     items.filter(item => item.title && item.year).forEach(item => {
       const key = `${item.title.toLowerCase()}::${item.year}`;
       if (!map.has(key)) {
-        map.set(key, { ...item, collections: [item.sourceFile] });
+        map.set(key, { ...item, collections: [item.sourceFile], collectionKeys: item.collectionKey ? [item.collectionKey] : [], collectionLabels: item.collectionLabel ? [item.collectionLabel] : [] });
         return;
       }
       const current = map.get(key);
@@ -171,6 +171,8 @@
         current[field] = current[`${field}List`].join("; ");
       });
       current.collections = mergeArrays(current.collections, [item.sourceFile]);
+      current.collectionKeys = mergeArrays(current.collectionKeys, item.collectionKey ? [item.collectionKey] : []);
+      current.collectionLabels = mergeArrays(current.collectionLabels, item.collectionLabel ? [item.collectionLabel] : []);
       current.codeUrl = current.codeUrl || item.codeUrl;
       current.paperUrl = current.paperUrl || item.paperUrl;
       current.note = current.note || item.note;

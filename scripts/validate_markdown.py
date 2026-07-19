@@ -14,6 +14,7 @@ PAIRS = [
     ("Palm-Physiological-Liveness.md", "Palm-Physiological-Liveness.zh-CN.md"),
     ("Palm-Attack-Generation.md", "Palm-Attack-Generation.zh-CN.md"),
     ("Datasets/README.md", "Datasets/README.zh-CN.md"),
+    ("Benchmarks/README.md", "Benchmarks/README.zh-CN.md"),
 ]
 
 CONTROLLED = {
@@ -25,7 +26,7 @@ CONTROLLED = {
 }
 
 ALIASES = {
-    "title": "title", "论文": "title", "dataset": "dataset", "数据集": "dataset",
+    "title": "title", "论文": "title", "dataset": "dataset", "数据集": "dataset", "benchmark": "benchmark",
     "year": "year", "年份": "year", "trait": "trait", "生物特征": "trait",
     "modality": "modality", "模态": "modality", "attack": "attack", "攻击": "attack", "攻击类型": "attack",
     "setting": "setting", "设置": "setting", "protocol": "setting", "协议": "setting",
@@ -85,10 +86,12 @@ def validate_records(path: Path, records: list[dict[str, str]]) -> list[str]:
         if "title" in record:
             title = extract_title(record["title"])
             titles.append(title.lower())
-            if not re.fullmatch(r"20\d{2}|19\d{2}", record.get("year", "")):
-                errors.append(f"{path}: record {idx}: invalid year {record.get('year')!r}")
-        if "dataset" in record and "title" not in record:
+        elif "benchmark" in record:
+            titles.append(extract_title(record["benchmark"]).lower())
+        elif "dataset" in record:
             titles.append(extract_title(record["dataset"]).lower())
+        if any(key in record for key in ("title", "benchmark", "dataset")) and not re.fullmatch(r"20\d{2}|19\d{2}", record.get("year", "")):
+            errors.append(f"{path}: record {idx}: invalid year {record.get('year')!r}")
         for field in ("trait", "modality", "attack", "setting", "access"):
             if field not in record:
                 continue
@@ -98,7 +101,7 @@ def validate_records(path: Path, records: list[dict[str, str]]) -> list[str]:
                 if value not in CONTROLLED[field]:
                     errors.append(f"{path}: record {idx}: unknown {field} value {value!r}")
     duplicates = [name for name, count in Counter(titles).items() if count > 1]
-    if duplicates and "Attack-Generation" not in path.name:
+    if duplicates and "Attack-Generation" not in path.name and "Benchmarks" not in path.parts:
         errors.append(f"{path}: duplicate rows: {duplicates}")
     return errors
 
@@ -112,10 +115,17 @@ def main() -> int:
         errors.extend(validate_records(zh_path, zh_records))
         if len(en_records) != len(zh_records):
             errors.append(f"Bilingual row mismatch: {en_rel}={len(en_records)}, {zh_rel}={len(zh_records)}")
-        en_keys = sorted((extract_title(r.get("title") or r.get("dataset", "")), r.get("year", "")) for r in en_records)
-        zh_keys = sorted((extract_title(r.get("title") or r.get("dataset", "")), r.get("year", "")) for r in zh_records)
+        en_keys = sorted((extract_title(r.get("title") or r.get("benchmark") or r.get("dataset", "")), r.get("year", "")) for r in en_records)
+        zh_keys = sorted((extract_title(r.get("title") or r.get("benchmark") or r.get("dataset", "")), r.get("year", "")) for r in zh_records)
         if en_keys != zh_keys:
             errors.append(f"Bilingual content mismatch: {en_rel} vs {zh_rel}")
+
+    forbidden_tokens = ["OWNER/Awesome-PAS", "<OWNER>", "python scripts/configure_repo.py"]
+    for rel in ["README.md", "README.zh-CN.md", "CITATION.cff"]:
+        text = (ROOT / rel).read_text(encoding="utf-8")
+        for token in forbidden_tokens:
+            if token in text:
+                errors.append(f"Placeholder remains in {rel}: {token}")
 
     required = ["README.md", "README.zh-CN.md", "index.html", "index.zh.html", "assets/app.js"]
     for item in required:

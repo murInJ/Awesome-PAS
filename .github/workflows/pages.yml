@@ -12,28 +12,84 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+      - name: Validate bilingual Markdown tables
+        run: python scripts/validate_markdown.py
+      - name: Test Markdown parser
+        run: |
+          node tests/parser.test.mjs
+          node tests/data-integration.test.mjs
+
   deploy:
+    needs: validate
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Check GitHub Pages enablement
+        id: pages-status
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.PAGES_PAT || github.token }}
+          PAGES_PAT: ${{ secrets.PAGES_PAT }}
+        run: |
+          if gh api --silent "repos/${GITHUB_REPOSITORY}/pages" >/dev/null 2>&1; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+            echo "GitHub Pages is already enabled."
+          elif [[ -n "${PAGES_PAT}" ]]; then
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "GitHub Pages is not enabled; configure-pages will enable it with PAGES_PAT."
+          else
+            echo "::error title=GitHub Pages is not enabled::Open repository Settings > Pages, set Source to GitHub Actions, save, and rerun this workflow. Alternatively add a PAGES_PAT repository secret with permission to administer Pages."
+            exit 1
+          fi
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
         with:
-          python-version: "3.12"
-      - uses: actions/setup-node@v4
+          token: ${{ secrets.PAGES_PAT || github.token }}
+          enablement: ${{ steps.pages-status.outputs.enabled != 'true' }}
+
+      - name: Package Pages artifact
+        shell: bash
+        run: |
+          tar \
+            --dereference --hard-dereference \
+            --directory . \
+            -cvf "${RUNNER_TEMP}/artifact.tar" \
+            --exclude=.git \
+            --exclude=.github \
+            --exclude=".[^/]*" \
+            .
+
+      - name: Upload Pages artifact
+        uses: actions/upload-artifact@v6
         with:
-          node-version: "22"
-      - run: python scripts/validate_markdown.py
-      - run: node tests/parser.test.mjs
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: .
-      - name: Deploy
+          name: github-pages
+          path: ${{ runner.temp }}/artifact.tar
+          retention-days: 1
+          if-no-files-found: error
+          compression-level: 0
+
+      - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5

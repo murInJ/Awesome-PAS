@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.0 - 2026-07-19
+
+- Replaced method, dataset and benchmark cards with compact Awesome-style list rows.
+- Added desktop column headers and responsive stacked rows for small screens.
+- Replaced tag pills with inline, separator-based metadata to increase information density.
+- Converted the collection map and statistics counters to flat list/strip layouts.
+- Kept secondary metadata available through compact inline disclosure rows.
+
 ## 0.3.0 — 2026-07-19
 
 - Reworked all resource cards into a compact, high-density layout.

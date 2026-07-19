@@ -8,16 +8,21 @@ const app = fs.readFileSync(path.join(root, "assets/app.js"), "utf8");
 const css = fs.readFileSync(path.join(root, "assets/style.css"), "utf8");
 const i18n = fs.readFileSync(path.join(root, "assets/i18n.js"), "utf8");
 
-for (const grid of ["methods-grid", "datasets-grid", "benchmarks-grid"]) {
-  assert.ok(app.includes(grid), `app must render ${grid}`);
-  assert.ok(css.includes(`.year-content.${grid}`), `CSS must define ${grid}`);
+for (const list of ["method-list", "dataset-list", "benchmark-list"]) {
+  assert.ok(app.includes(list), `app must render ${list}`);
+  assert.ok(css.includes(`.${list}`), `CSS must define ${list}`);
 }
-assert.ok(app.includes('class="resource-more"'), "secondary metadata must use compact expandable details");
-assert.ok(css.includes("grid-template-columns: repeat(3, minmax(0, 1fr))"), "desktop resource grids must use three columns");
-assert.ok(css.includes("-webkit-line-clamp: 2"), "long descriptions must be clamped");
-assert.ok(i18n.includes('moreDetails: "More details"'));
-assert.ok(i18n.includes('moreDetails: "更多信息"'));
+assert.ok(app.includes('class="resource-row method-row"'), "methods must render as compact rows");
+assert.ok(app.includes('class="resource-row dataset-row"'), "datasets must render as compact rows");
+assert.ok(app.includes('class="resource-row benchmark-row"'), "benchmarks must render as compact rows");
+assert.ok(app.includes('class="list-details"'), "secondary metadata must use compact inline details");
+assert.ok(!app.includes('class="resource-card'), "resource cards must not be rendered");
+assert.ok(!css.includes(".resource-card"), "resource card CSS must be removed");
+assert.ok(css.includes(".resource-list-header"), "desktop lists must provide column headers");
+assert.ok(css.includes("border-bottom: 1px solid var(--line)"), "list rows must use separators");
+assert.ok(i18n.includes('taxonomy: "Taxonomy"'));
+assert.ok(i18n.includes('taxonomy: "分类信息"'));
 
 const braceBalance = [...css].reduce((balance, char) => balance + (char === "{" ? 1 : char === "}" ? -1 : 0), 0);
 assert.equal(braceBalance, 0, "CSS braces must be balanced");
-console.log("Compact layout contract tests passed.");
+console.log("Compact list layout contract tests passed.");

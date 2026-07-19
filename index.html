@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Awesome Palm Authentication Security insights dashboard">
+  <title>Awesome Palm Authentication Security</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-grid">
+      <div>
+        <p class="eyebrow">Awesome-PAS · Markdown-driven dashboard</p>
+        <h1 id="site-title">Awesome Palm Authentication Security</h1>
+        <p class="subtitle" id="site-subtitle"></p>
+      </div>
+      <nav class="lang-switch" aria-label="Language">
+        <a href="index.html" class="active">English</a>
+        <a href="index.zh.html" class="">简体中文</a>
+        <a href="README.md">Markdown</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="loading" class="loading"><span id="loading-message">Loading…</span></section>
+    <div id="dashboard" hidden>
+      <section class="summary-grid" aria-label="Summary">
+        <article class="stat-card"><span class="stat-value" id="count-papers">0</span><span class="stat-label" id="label-papers"></span></article>
+        <article class="stat-card"><span class="stat-value" id="count-datasets">0</span><span class="stat-label" id="label-datasets"></span></article>
+        <article class="stat-card"><span class="stat-value" id="count-code">0</span><span class="stat-label" id="label-code"></span></article>
+        <article class="stat-card"><span class="stat-value" id="count-latest">—</span><span class="stat-label" id="label-latest"></span></article>
+      </section>
+
+      <section class="panel">
+        <h2 id="filters-title"></h2>
+        <div class="filters">
+          <div class="field search-field"><label id="search-label" for="search"></label><input id="search" type="search"></div>
+          <div class="field"><label id="trait-label" for="filter-trait"></label><select id="filter-trait"></select></div>
+          <div class="field"><label id="modality-label" for="filter-modality"></label><select id="filter-modality"></select></div>
+          <div class="field"><label id="attack-label" for="filter-attack"></label><select id="filter-attack"></select></div>
+          <div class="field"><label id="setting-label" for="filter-setting"></label><select id="filter-setting"></select></div>
+          <div class="field"><label id="availability-label" for="filter-availability"></label><select id="filter-availability"></select></div>
+          <button type="button" id="reset-button"></button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="charts-grid">
+          <article class="chart-card"><h3 id="year-chart-title"></h3><div id="chart-year"></div></article>
+          <article class="chart-card"><h3 id="trait-chart-title"></h3><div id="chart-trait"></div></article>
+          <article class="chart-card"><h3 id="attack-chart-title"></h3><div id="chart-attack"></div></article>
+          <article class="chart-card"><h3 id="modality-chart-title"></h3><div id="chart-modality"></div></article>
+          <article class="chart-card"><h3 id="setting-chart-title"></h3><div id="chart-setting"></div></article>
+          <article class="chart-card"><h3 id="access-chart-title"></h3><div id="chart-access"></div></article>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="results-heading"><h2 id="results-title"></h2><span class="count-badge" id="results-count">0</span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th>Title</th><th>Year</th><th>Venue</th><th>Trait</th><th>Modality</th><th>Attack</th><th>Setting</th><th>Dataset</th><th>Code</th>
+            </tr></thead>
+            <tbody id="results-body"></tbody>
+          </table>
+        </div>
+        <p class="note" id="markdown-note"></p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="container">Awesome-PAS · MIT · Markdown is the single source of truth.</div></footer>
+  <script>window.AWESOME_PAS_LANG = "en";</script>
+  <script src="assets/config.js"></script>
+  <script src="assets/markdown-parser.js"></script>
+  <script src="assets/i18n.js"></script>
+  <script src="assets/charts.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>

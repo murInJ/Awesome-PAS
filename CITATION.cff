@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+title: Awesome Palm Authentication Security
+message: If you use this resource, please cite the repository and the original works listed in it.
+type: software
+version: 0.1.0
+date-released: 2026-07-19
+license: MIT
+repository-code: https://github.com/OWNER/Awesome-PAS
+keywords:
+  - palmprint
+  - palm vein
+  - presentation attack detection
+  - anti-spoofing
+  - liveness detection

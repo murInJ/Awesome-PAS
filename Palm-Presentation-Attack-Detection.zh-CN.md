@@ -8,6 +8,7 @@
 
 | 论文 | 发表 venue | 年份 | 生物特征 | 模态 | 攻击 | 线索 | 设置 | 数据集 | 代码 | 数据可用性 | 说明 |
 |:---|:---:|---:|:---|:---|:---|:---|:---|:---|:---:|:---:|:---|
+| [GBU-Palm: A Multimodal Video Dataset and Benchmark for Palm Presentation Attack Detection](https://arxiv.org/abs/2608.14389) | arXiv | 2026 | Palm Video; Palm Multimodal | RGB; NIR; Video | Print; Display Replay | Temporal; Spectral | Intra-Dataset; Cross-Subject; Cross-Environment | GBU-Palm | - | Announced | 提出原生视频 RGB-NIR 掌纹呈现攻击数据集，P1/P2 协议隔离身份与攻击来源链；评测四种视频架构并分析光谱及时序证据。数据计划发布，论文未提供代码或下载链接。 |
 | [A Comprehensive Framework for Palm Vein Anti-Spoofing With Preprocessing Pipeline, Dataset, and Benchmark](https://doi.org/10.1109/TIFS.2025.3650391) | T-IFS | 2026 | Palm Vein | NIR | Print; 3D | Texture; Frequency | Intra-Dataset; Unknown Attack; Anomaly Detection | PVASD | [Code](https://github.com/valhongli/PVASD) | Announced | 大规模掌静脉鉴伪框架，包含预处理、数据集和代表性 benchmark；需要定期复核仓库是否已开放。 |
 
 ## 2025 年

@@ -8,6 +8,8 @@ Benchmark protocols are ordered by the publication year of their defining source
 
 | Benchmark | Year | Trait | Dataset | Protocol | Train Condition | Test Condition | Primary Metrics | Threshold Rule | Status | Source |
 |:---|---:|:---|:---|:---|:---|:---|:---|:---|:---:|:---|
+| GBU-Palm P1 (In-Env) | 2026 | Palm Video; Palm Multimodal | GBU-Palm | Intra-Dataset; Cross-Subject | E1–E6 in training and validation; subject-, palm-identity- and attack-lineage-disjoint splits | E1–E6 with disjoint identities and attack lineages | AUC; HTER | Selected on validation and frozen for test; selection criterion unspecified | Defined | [Paper](https://arxiv.org/abs/2608.14389) |
+| GBU-Palm P2 (Cross-Env) | 2026 | Palm Video; Palm Multimodal | GBU-Palm | Cross-Subject; Cross-Environment | E2, E4, E5, E6 in training and validation; subject-, palm-identity- and attack-lineage-disjoint splits | Held-out E1 and E3 only; disjoint identities and attack lineages | AUC; HTER | Selected on validation and frozen for test; selection criterion unspecified | Defined | [Paper](https://arxiv.org/abs/2608.14389) |
 | PVASD Benchmark | 2026 | Palm Vein | PVASD | Unknown Attack; Anomaly Detection | Official split | Physical and AI-generated attacks | APCER; BPCER; ACER; AUC | Official protocol | Announced | [Paper](https://doi.org/10.1109/TIFS.2025.3650391) |
 
 ## Year 2025

@@ -8,6 +8,7 @@ This collection covers sensor-level physical attacks against palm authentication
 
 | Title | Venue | Year | Trait | Modality | Attack | Cue | Setting | Dataset | Code | Dataset Access | Note |
 |:---|:---:|---:|:---|:---|:---|:---|:---|:---|:---:|:---:|:---|
+| [GBU-Palm: A Multimodal Video Dataset and Benchmark for Palm Presentation Attack Detection](https://arxiv.org/abs/2608.14389) | arXiv | 2026 | Palm Video; Palm Multimodal | RGB; NIR; Video | Print; Display Replay | Temporal; Spectral | Intra-Dataset; Cross-Subject; Cross-Environment | GBU-Palm | - | Announced | Introduces native-video RGB-NIR palm PAD with identity- and attack-lineage-disjoint P1/P2 protocols; benchmarks four video architectures and analyzes spectral and temporal evidence. Data release is announced; no code or download URL is provided. |
 | [A Comprehensive Framework for Palm Vein Anti-Spoofing With Preprocessing Pipeline, Dataset, and Benchmark](https://doi.org/10.1109/TIFS.2025.3650391) | T-IFS | 2026 | Palm Vein | NIR | Print; 3D | Texture; Frequency | Intra-Dataset; Unknown Attack; Anomaly Detection | PVASD | [Code](https://github.com/valhongli/PVASD) | Announced | Large-scale framework with preprocessing, a dataset and representative benchmarks; repository availability should be rechecked periodically. |
 
 ## Year 2025

@@ -8,6 +8,8 @@
 
 | Benchmark | 年份 | 生物特征 | 数据集 | 协议 | 训练条件 | 测试条件 | 主要指标 | 阈值规则 | 状态 | 来源 |
 |:---|---:|:---|:---|:---|:---|:---|:---|:---|:---:|:---|
+| GBU-Palm P1 (In-Env) | 2026 | Palm Video; Palm Multimodal | GBU-Palm | Intra-Dataset; Cross-Subject | 训练与验证均覆盖 E1–E6；受试者、手掌身份与攻击来源链互不重叠 | E1–E6；与训练侧隔离身份及攻击来源链 | AUC; HTER | 在验证集选取阈值并固定用于测试；未说明具体选取准则 | Defined | [Paper](https://arxiv.org/abs/2608.14389) |
+| GBU-Palm P2 (Cross-Env) | 2026 | Palm Video; Palm Multimodal | GBU-Palm | Cross-Subject; Cross-Environment | 在 E2、E4、E5、E6 上训练与验证；受试者、手掌身份与攻击来源链互不重叠 | 仅在未参与训练的 E1、E3 上测试；隔离身份及攻击来源链 | AUC; HTER | 在验证集选取阈值并固定用于测试；未说明具体选取准则 | Defined | [Paper](https://arxiv.org/abs/2608.14389) |
 | PVASD Benchmark | 2026 | Palm Vein | PVASD | Unknown Attack; Anomaly Detection | Official split | 物理攻击和 AI 生成攻击 | APCER; BPCER; ACER; AUC | Official protocol | Announced | [Paper](https://doi.org/10.1109/TIFS.2025.3650391) |
 
 ## 2025 年

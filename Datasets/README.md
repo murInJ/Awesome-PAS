@@ -8,6 +8,7 @@ Datasets are ordered by release year. `Access` uses one controlled value: `Publi
 
 | Dataset | Year | Trait | Modality | Sample Type | Subjects / Palm IDs | Bona Fide | Attacks | Attack Types | Devices / Domains | Protocol | Access | Paper / Page | Note |
 |:---|---:|:---|:---|:---|:---|---:|---:|:---|:---|:---|:---:|:---|:---|
+| GBU-Palm | 2026 | Palm Video; Palm Multimodal | RGB; NIR; Video | Video | 105 subjects; 210 Palm IDs | 11108 | 10218 | Print; Display Replay | 6 illumination environments; consumer capture devices; synchronized RGB-NIR system | Intra-Dataset; Cross-Subject; Cross-Environment | Announced | [Paper](https://arxiv.org/abs/2608.14389) | 21,326 videos: 5,584 Print and 4,634 Replay attacks; 15,016 RGB-only and 6,310 synchronized RGB-NIR samples. Native 16 s observations with timestamps, 256×256 palm ROIs and attack-lineage metadata. The abstract announces a forthcoming release; no download URL is provided. |
 | PVASD | 2026 | Palm Vein | NIR | Image | 5515 subjects | 880241 | 307278; 20000 AI-generated extension | Print; 3D; Synthetic | Commercial sensors; 5 resolutions | Intra-Dataset; Unknown Attack; Anomaly Detection | Announced | [Paper](https://doi.org/10.1109/TIFS.2025.3650391) | Reported total: 1,187,519 captured images, with 16 physical attack types and an AI-generated extension. |
 
 ## Year 2023

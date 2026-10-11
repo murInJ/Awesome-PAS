@@ -8,6 +8,7 @@
 
 | 数据集 | 年份 | 生物特征 | 模态 | 样本类型 | 受试者 / Palm IDs | 真实样本 | 攻击样本 | 攻击类型 | 设备 / 域 | 协议 | 可用性 | 论文 / 页面 | 说明 |
 |:---|---:|:---|:---|:---|:---|---:|---:|:---|:---|:---|:---:|:---|:---|
+| GBU-Palm | 2026 | Palm Video; Palm Multimodal | RGB; NIR; Video | Video | 105 subjects; 210 Palm IDs | 11108 | 10218 | Print; Display Replay | 六类光照环境; 消费级采集设备; 同步 RGB-NIR 系统 | Intra-Dataset; Cross-Subject; Cross-Environment | Announced | [Paper](https://arxiv.org/abs/2608.14389) | 共 21,326 段视频，包括 5,584 段打印攻击和 4,634 段回放攻击；15,016 段仅含 RGB，6,310 段为同步 RGB-NIR 样本。保留 16 秒原生观测、时间戳、256×256 掌纹区域及攻击来源链元数据。摘要预告数据将发布，未提供下载链接。 |
 | PVASD | 2026 | Palm Vein | NIR | Image | 5515 subjects | 880241 | 307278; 20000 AI-generated extension | Print; 3D; Synthetic | Commercial sensors; 5 resolutions | Intra-Dataset; Unknown Attack; Anomaly Detection | Announced | [Paper](https://doi.org/10.1109/TIFS.2025.3650391) | 论文报告包含 1,187,519 张采集图像、16 类物理攻击以及 AI 生成攻击扩展。 |
 
 ## 2023 年
